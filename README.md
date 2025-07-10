@@ -34,7 +34,7 @@ To specify a custom requirements file, use the --file (or -f) option:<br>
 Para especificar um arquivo de requirements personalizado, use a opção --file (ou -f):
 
 ```bash
-preqwizard --file custom_requirements.txt
+reqwizard --file custom_requirements.txt
 ```
 <br>
 To perform a dry run (only check and show what would be installed or updated, without changing anything), use:<br>  
@@ -67,3 +67,6 @@ reqwizard --version
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/mreddwolf/reqwizard/blob/main/LICENSE) file for details.  
 Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENÇA](https://github.com/mreddwolf/reqwizard/blob/main/LICENSE) para detalhes.
+
+
+
