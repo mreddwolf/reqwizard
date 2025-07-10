@@ -34,7 +34,7 @@ To specify a custom requirements file, use the --file (or -f) option:
 Para especificar um arquivo de requirements personalizado, use a opção --file (ou -f):
 
 ```bash
-preqwizard --file custom_requirements.txt
+reqwizard --file custom_requirements.txt
 ```
 <br>
 To perform a dry run (only check and show what would be installed or updated, without changing anything), use:  
