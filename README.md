@@ -1,4 +1,4 @@
-# Python Requirements Installer - pyreqinst
+# Requirements Wizard - reqwizard
 
 A smart installer for Python requirements files.  
 Checks installed packages and versions, installs or updates as needed.
@@ -13,45 +13,42 @@ Requer `Python 3.10` ou superior
 
 ## How to install / Como Instalar
 <br>
-Install pyreqinst via pip from PyPI:  
-Instale o pyreqinst via pip a partir do PyPI:
+Install reqwizard via pip from PyPI:  
+Instale o reqwizard via pip a partir do PyPI:
 
 ```bash
-pip install pyreqinst
+pip install reqwizard
 ```
-
-_This installs the package in editable mode, so you can modify the code and test it without reinstalling._    
-_Isso instala o pacote em modo editável, permitindo modificar o código e testá-lo sem precisar reinstalar._
 <br>
 
 ## Usage / Uso
 <br>
-Run pyreqinst in your project folder to install or update dependencies from the default `requirements.txt` file:  
-Execute o pyreqinst na pasta do seu projeto para instalar ou atualizar dependências a partir do arquivo padrão `requirements.txt`:
+Run reqwizard in your project folder to install or update dependencies from the default `requirements.txt` file:  
+Execute o reqwizard na pasta do seu projeto para instalar ou atualizar dependências a partir do arquivo padrão `requirements.txt`:
 
 ```bash
-pyreqinst
+reqwizard
 ```  
 <br>
 To specify a custom requirements file, use the --file (or -f) option:  
 Para especificar um arquivo de requirements personalizado, use a opção --file (ou -f):
 
 ```bash
-pyreqinst --file custom_requirements.txt
+preqwizard --file custom_requirements.txt
 ```
 <br>
 To perform a dry run (only check and show what would be installed or updated, without changing anything), use:  
 Para fazer uma simulação (dry run), que apenas verifica e mostra o que seria instalado ou atualizado, sem alterar nada, use:
 
 ```bash
-pyreqinst --dry-run
+reqwizard --dry-run
 ```
 <br>
-To check the installed version of pyreqinst, use:  
-Para checar a versão instalada do pyreqinst, use:
+To check the installed version of reqwizard, use:  
+Para checar a versão instalada do reqwizard, use:
 
 ```bash
-pyreqinst --version
+reqwizard --version
 ```
 
 

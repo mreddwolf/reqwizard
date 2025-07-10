@@ -1,5 +1,5 @@
 name: reqwizard
-version: 0.1.0
+version: 0.1.1
 author: MrEddwolf
 email: viana.edu@live.com
 git: https://github.com/MrEddwolf/reqwizard
@@ -16,7 +16,7 @@ changelog:
   - "YAML config parser."
   - ""
   - "[Portugês]"
-  - "v0.1.0: versão inicial com leitura de configuração."
+  - "v0.1.1: versão de correção."
   - "suporte a checagem de versão mínima."
   - "parser para arquivos YAML de configuração."
   - ""
