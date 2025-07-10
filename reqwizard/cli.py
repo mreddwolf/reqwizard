@@ -5,13 +5,18 @@ import os
 import sys
 import re
 import argparse
-import yaml
+import requests
 
-def load_config(filename="config.pri"):
-    with open(filename, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+try:
+    import tomllib  # Python 3.11+
+except ModuleNotFoundError:
+    import tomli as tomllib  # para Python 3.10 e anteriores com tomli instalado
 
-# print("CONFIG DEBUG:", config)
+def load_config(filename="pyproject.toml"):
+    with open(filename, "rb") as f:
+        data = tomllib.load(f)
+    # Extrair a seção [project]
+    return data.get("project", {})
 
 def get_versao_instalada(pacote):
     try:
@@ -105,10 +110,28 @@ def processar_requirements(caminho="requirements.txt", dry_run=False):
             if linha and not linha.startswith("#"):
                 instalar_ou_verificar(linha, dry_run)
 
+def checar_atualizacao(nome_pacote: str, versao_atual: str):
+    try:
+        url = f"https://pypi.org/pypi/{nome_pacote}/json"
+        resposta = requests.get(url, timeout=5)
+        if resposta.status_code == 200:
+            dados = resposta.json()
+            ultima_versao = dados["info"]["version"]
+            if ultima_versao != versao_atual:
+                print(f"[↑] Versão mais recente disponível: {ultima_versao} (você está com {versao_atual})")
+                print(f"    Atualize com: pip install --upgrade {nome_pacote}")
+            else:
+                print(f"[✓] Você já está usando a versão mais recente: {versao_atual}")
+        else:
+            print("[!] Não foi possível acessar o PyPI para verificar atualizações.")
+    except Exception as e:
+        print(f"[!] Erro ao verificar atualizações: {e}")
+
 def main():
-    config = load_config()  # Lê o config.pri
+    config = load_config()  # lê pyproject.toml e pega a seção [project]
 
     desc = config.get("description")
+    # No pyproject.toml description é string, ou pode ser lista? No seu exemplo é string, então já pode usar direto
     if isinstance(desc, list):
         desc = " ".join([linha.strip() for linha in desc if linha.strip()])
     else:
@@ -121,6 +144,7 @@ def main():
     parser.add_argument("--version", "-v", action="store_true", help="Show version / Mostrar versão")
     parser.add_argument("--changelog", "-c", action="store_true", help="Show changelog / Mostrar changelog")
     parser.add_argument("--description", action="store_true", help="Show project description / Mostrar descrição do projeto")
+    parser.add_argument("--check-update", "-u", action="store_true", help="Verificar se há nova versão no PyPI / Check for update on PyPI")
     args = parser.parse_args()
 
     if args.version:
@@ -128,7 +152,7 @@ def main():
         return
 
     if args.changelog:
-        changelog = config.get("changelog")
+        changelog = config.get("dynamic", {}).get("changelog") or config.get("changelog")
         if changelog and isinstance(changelog, list):
             print("Changelog:")
             for item in changelog:
@@ -136,7 +160,7 @@ def main():
         else:
             print("[!] Nenhuma entrada de changelog encontrada.")
         return
-    
+
     if args.description:
         desc = config.get("description")
         print("Descrição:")
@@ -145,6 +169,10 @@ def main():
                 print(f"- {linha}")
         else:
             print(f"- {desc}")
+        return
+
+    if args.check_update:
+        checar_atualizacao(config["name"], config["version"])
         return
 
     # Se não for versão nem changelog, processa os requirements

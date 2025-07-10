@@ -1,3 +1,4 @@
 setuptools
 packaging
-PyYAML
+tomli
+requests
